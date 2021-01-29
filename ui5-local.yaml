@@ -1,0 +1,39 @@
+specVersion: "2.0"
+metadata:
+  name: alp.AnlyticalListPage
+type: application
+framework:
+  name: SAPUI5
+  version: 1.86.0
+  libraries:
+    - name: sap.ui.core
+    - name: sap.ui.generic.app
+    - name: sap.suite.ui.generic.template
+    - name: sap.m
+    - name: sap.ushell
+    - name: sap.f
+    - name: sap.ui.comp
+    - name: sap.ui.table
+    - name: themelib_sap_fiori_3
+server:
+  customMiddleware:
+    - name: fiori-tools-proxy
+      afterMiddleware: compression
+      configuration:
+        backend:
+          - path: /sap
+            url: null
+            destination: ECC
+          - path: /sap/opu/odata
+            pathPrefix: /sap/opu/odata
+            url: ""
+            destination: ECC
+          - path: /sap/bc/lrep
+            pathPrefix: /sap/bc/lrep
+            url: ""
+            destination: ECC
+    - name: fiori-tools-appreload
+      afterMiddleware: compression
+      configuration:
+        port: 35729
+        path: webapp
